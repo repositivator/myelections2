@@ -30,3 +30,35 @@ def area(request, area):
     context = {"candidates":candidates, "area":area, "poll":poll}
 
     return render(request, 'elections/area.html', context)
+
+
+def polls(request, poll_id):
+    poll = Poll.objects.get(pk=poll_id)
+    selection = request.POST['choice']
+
+    try:
+        choice = Choice.objects.get(poll_id=poll_id, candidate_id=selection)
+        choice.votes += 1
+        chocie.save()
+    except Exception:
+        choice = Choice(poll_id = poll_id, candidate_id=selection, vote = 1)
+        choice.save()
+
+    return HttpResponse("finish")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
